@@ -1,0 +1,49 @@
+data:
+    livre1 :
+        id : 1
+        isbn : 2080705253
+        title : 'Le mépris'
+        resume : |
+            Capri ! Au pied des Faraglioni  l' le rayonne d'azur et de sérénité. Pourtant, le drame couve entre Emilia et Riccardo. Perdu dans les méandres d'un scénario sur l'Odyssée, Riccardo sent sa femme se détacher de lui. Emilia ne l'aime plus. Pire, elle le méprise. Drôle de coïncidence ! Riccardo voit soudain sa propre vie se superposer à son scénario. Si Ulysse tarde à revenir à Ithaque, c'est par crainte de revoir Pénélope, sachant qu'il...
+        pageNumber : 30
+        featuredimage : '1.jpg'
+        author :
+            id : 1
+            firstName : 'Alberto'
+            lastName : 'Moravia'
+        subcategory :
+            id : 1
+            name : |
+                Poésie
+    livre2 :
+        id : 2
+        isbn : 2080705254
+        title : '20000 lieux sous les mers'
+        resume    : |
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque blanditiis dicta itaque laborum natus nemo non perferendis perspiciatis quasi, temporibus? Cumque magnam sapiente sequi! Amet architecto eligendi inventore maiores quos.
+        pageNumber : 400
+        featuredimage : '2.jpg'
+        author :
+            id : 2
+            firstName : 'Jules'
+            lastName : 'Vernes'
+        subcategory :
+            id : 1
+            name : |
+                Poésie
+    livre3 :
+        id : 3
+        isbn : 2080705255
+        title : 'De la terre à la lune'
+        resume    : |
+            Après la fin de la guerre de Sécession, le Gun Club de Baltimore, club d\'artilleurs, végète par manque d'activité. Son président, Impey Barbicane, propose très sérieusement d'envoyer un boulet de canon sur la Lune. Après plusieurs réunions, le Gun Club s\'organise et lance une collecte de fonds en direction de toute la planète. Après avoir récolté l’argent nécessaire, le projet prend forme sous la forme d'un gigantesque canon d'une conception inspirée des Columbiad américains. La volonté du club est de mener l’expérience sur le territoire des États-Unis. Après s'être renseigné auprès de l'observatoire de Cambridge (Massachusetts) pour connaître les contraintes physiques (vitesse, date, lieu) favorisant leur projet, les membres du club déterminent les caractéristiques du canon, du projectile et de l'explosif. Ils choisissent également un site près de Tampa en Floride pour y préparer le tir. Un télescope est enfin construit dans les Rocheuses, afin de pouvoir observer au mieux le projectile durant son vol. Le Gun Club reçoit un télégramme du Français Michel Ardan, qui propose de fabriquer un projectile creux (au lieu du boulet plein prévu) dans lequel il pourrait prendre place afin d'aller sur la Lune. Après avoir vérifié l’existence de ce Français, Barbicane suspend la fabrication du projectile. Arrivé aux États-Unis, Ardan convainc l'opinion publique de la possibilité de son idée. Seul Nicholl, adversaire et rival de Barbicane, s’oppose à ce projet, de la même façon qu'il s'était opposé au projet initial de Barbicane. Ardan résout le conflit en persuadant les deux hommes d'entreprendre avec lui ce voyage vers la Lune. Le tir est un succès. Sur Terre, après l’enthousiasme arrive l’inquiétude, car il est impossible de suivre le projectile à cause des nuages. Au bout de quelques jours, celui-ci est finalement découvert en orbite autour de la Lune et c'est cette partie qui sera contée dans Autour de la Lune.
+        pageNumber : 5000
+        featuredimage : '2.jpg'
+        author :
+            id : 2
+            firstName : 'Jules'
+            lastName : 'Vernes'
+        subcategory :
+            id : 1
+            name : |
+                Poésie

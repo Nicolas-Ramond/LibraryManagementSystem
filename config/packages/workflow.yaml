@@ -1,0 +1,61 @@
+# config/packages/workflow.yaml
+framework:
+    workflows:
+        pbook_status:
+            type: 'workflow' # or 'state_machine'
+            audit_trail:
+                enabled : true
+            marking_store:
+                type: 'multiple_state' # or 'single_state'
+                arguments:
+                    - 'status'
+            supports:
+                - App\Entity\PBook
+            initial_place: inside
+            places:
+                - inside
+                - outside
+                - reserved
+                - not_available
+            transitions:
+                rent:
+                    from: inside
+                    to:   outside
+                #Le livre passe de l'état inside à inside ET reserved
+                inside_reserv:
+                    from: inside
+                    to:   [inside, reserved]
+                #Le livre passe de l'état outside à outside ET reserved
+                rent_reserv:
+                    from: outside
+                    to:   [outside, reserved]
+                #Le livre passe de l'état outside à inside
+                return:
+                    from: outside
+                    to:   inside
+                #Le livre passe de l'état outside ET reserved à inside ET reserved
+                return_reserv:
+                    from: [outside, reserved]
+                    to:   [inside, reserved]
+                #Le livre passe de outside à not_available
+                return_ko:
+                    from: outside
+                    to:   not_available
+                #Le livre passe de outside ET reserved à not_available
+                return_res_ko:
+                    from: [outside, reserved]
+                    to:   not_available
+                #Le livre passe de outside ET reserved à inside
+                ret_no_res_ins:
+                    from: [outside, reserved]
+                    to:   inside
+                #Le livre passe de not_available à inside
+                repaired:
+                    from: not_available
+                    to: inside
+                rm_reserv_out:
+                    from: [outside, reserved]
+                    to:   outside
+                rm_reserv_in:
+                    from: [inside, reserved]
+                    to:   inside

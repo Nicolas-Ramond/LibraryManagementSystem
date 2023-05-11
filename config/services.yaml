@@ -1,0 +1,124 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    books_assets_directory: '%kernel.project_dir%/public/upload'
+    locale: 'fr'
+    email_from: '%env(MAILER_FROM)%'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false       # Allows optimizing the container by removing unused services; this also means
+                            # fetching services directly from the container via $container->get() won't work.
+                            # The best practice is to be explicit about your dependencies anyway.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+    App\Log\CustomLogger:
+        autowire: true
+        arguments: ['@logger']
+        tags:
+        - { name: monolog.logger, channel: ovh }
+
+    App\Service\Sms\SmsProvider:
+        autowire: true
+        arguments:
+            # the '@' symbol is important: that's what tells the container
+            # you want to pass the *service* whose id is 'monolog.logger.request',
+            # and not just the *string* 'monolog.logger.request'
+            $logger: '@monolog.logger.ovh'
+#        tags:
+#        - { name: monolog.processor }
+
+    App\Service\Member\MemberProvider:
+        autowire: true
+#        arguments:
+            # the '@' symbol is important: that's what tells the container
+            # you want to pass the *service* whose id is 'monolog.logger.request',
+            # and not just the *string* 'monolog.logger.request'
+#            $logger: '@monolog.logger.ovh'
+    #        tags:
+    #        - { name: monolog.processor }
+
+    monolog.formatter.session_request:
+        class: Monolog\Formatter\LineFormatter
+        arguments:
+        - "[%%datetime%%] [%%extra.token%%] %%channel%%.%%level_name%%: %%message%% %%context%% %%extra%%\n"
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+    App\Book\BookRequestHandler:
+        arguments:
+            $assetsDirectory: '%books_assets_directory%'
+
+    App\Book\BookRequestUpdateHandler:
+        arguments:
+            $assetsDirectory: '%books_assets_directory%'
+
+    # Solution I
+    #App\Book\BookCatalogue:
+    #    calls:
+    #        - ['addSource', ['@App\Book\Source\YamlSource']]
+    #        - ['addSource', ['@App\Book\Source\DoctrineSource']]
+
+    # Solution II
+    #App\Book\Source\YamlSource:
+    #    tags:
+    #        - app.book_source
+
+    #App\Book\Source\DoctrineSource:
+    #    tags:
+    #        - app.book_source
+
+    # Solution III
+    _instanceof:
+        App\Book\Source\BookAbstractSource:
+            tags:
+            - app.book_source
+
+    App\Book\BookCatalogue:
+        calls:
+        - ['setSources', [!tagged app.book_source]]
+
+    App\DataCollector\SourcesCollector:
+        tags:
+        -
+            name:     data_collector
+            template: 'collector/sources.html.twig'
+            # must match the value returned by the getName() method
+            id:       'app.sources_collector'
+            # optional priority
+            # priority: 300
+        public: false
+
+    audit_trail_listener:
+        class: App\Event\Subscriber\CustomAuditTrailListener
+        arguments:
+            - "@logger"
+        tags:
+        - { name: kernel.event_subscriber }
+
+    App\Mailer\Mailer:
+        arguments:
+            $mailFrom: '%email_from%'
+
+    Elastica\Client:
+        $config:
+            host: 'elasticsearch' # ou 127.0.0.1

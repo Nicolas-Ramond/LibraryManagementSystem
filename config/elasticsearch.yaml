@@ -1,0 +1,39 @@
+settings:
+  index:
+    # single node, no sharding
+    number_of_shards: 1
+    number_of_replicas: 0
+mappings:
+  biblio:
+    dynamic: false # disable dynamic mapping #false
+    properties:
+      Book_id:
+        type: integer
+      Book_isbn:
+        type: integer
+      Book_title:
+        type: keyword
+      Book_author:
+        type: keyword
+      Subcategory_book:
+        type: keyword
+      Member_id:
+        type: integer
+      Member_firstname:
+        type: text
+      Member_lastname:
+        type: text
+      Member_email:
+        type: text
+      Booking_startdate:
+        type: date
+        format: 'yyyy-MM-dd'
+      Booking_enddate:
+        type: date
+        format: 'yyyy-MM-dd'
+      PBook_id:
+        type: integer
+      Member_address:
+        type: keyword
+#      PBook_status:
+#        type: keyword

@@ -1,0 +1,29 @@
+En tant que membre non inscrit, je dois pouvoir:
+- lister les livres physiques et numériques
+- lister les librairies
+- m'inscrire donc choisir et payer un abonnement en fonction de mon statut (Etudiant, sans emploi, grande famille ou standard)
+- fournir ma photo d'avatar et mes informations personnelles
+- charger une photo contenant la preuve de mon statut.
+
+En tant que membre inscrit, je dois pouvoir:
+- lister tous les livres référencés dans la base de données des livres de tous les libraires
+- voir leurs disponibilités et leurs emplacements géographiques si il est physique ou/et numérique
+- réserver jusqu'à 3 livres physiques dans la même période de réservation
+- acheter autant d'Ebook que je le souhaite et pouvoir les consulter en ligne (restriction téléchargement).
+
+En tant qu'admin, je dois pouvoir:
+- lister
+- ajouter
+- modifier
+- supprimer les librairies, les libraires, les livres, les membres, les images, les fichiers, les abonnements.
+
+En tant que super-admin, je dois pouvoir:
+- lister, créer, modifier, supprimer les admins.
+
+En tant que libraire, je dois pouvoir:
+- lister les livres de toutes les librairies
+- lister l'historique de réservation par livre
+- inscrire un membre inscrit sur la liste de réservation d'un livre
+- créer, modifier, supprimer les livres contenus dans le stock de ma librairie
+- lister les disponibilités des livres
+- Voir avec ElasticSearch le top des livres les plus consultés et commander des livres si manque de stock
